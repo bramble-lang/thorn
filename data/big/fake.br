@@ -1,0 +1,39 @@
+mod test {
+  mod test {
+    fn func0(x: ::test::test::test, x: ::test::test::test::test::test::test, x: test::test::test::test::test::test, x: ::test::test, ) {
+      let x: u8 :=  -if ( !if ( 10) {} else {}) {} else {}|| ( !( if ( !( -false)) {} else {}))&& -false|| -0;
+      let x: ::test::test::test::test::test :=  !true == !( !( !if ( false) {}));
+      let x: bool :=  ( if ( -if ( !if ( if ( !( -false)) {} else {}) {} else {}) {} else {}) {} else {})&& -if ( -if ( -false) {} else {}) {} else {};
+    return;    }
+    struct MyStruct1{x: i32, x: u32, x: i32, x: i16, x: i8,     }
+    fn func2(x: i32, x: test::test::test, x: ::test::test::test::test::test::test, x: test::test::test::test::test, x: i8, ) {
+      let x: test::test :=  if ( !false) {}|| -if ( ( !false)) {} else {}&& -true;
+      let x: ::test::test::test::test :=  !( if ( if ( ( -if ( ( !if ( -0) {})) {} else {})) {} else {}) {}) >= ( -if ( -( true)) {} else {})&& !false|| !10;
+      let x: test::test::test::test :=  !( -( ( -10))) != 0&& false|| !if ( if ( !if ( !if ( -( if ( if ( ( if ( true) {} else {})) {}) {})) {}) {}) {} else {}) {};
+      let x: test::test::test::test::test::test :=  !false&& if ( -10) {} else {}|| !if ( if ( !if ( !( -false)) {} else {}) {}) {};
+    return;    }
+  }
+  fn func3(x: test::test::test, x: ::test::test::test::test, x: u32, x: bool, x: u16, ) -> u8 {
+    let x: test :=  ( -( -if ( !( ( !( !( -true))))) {})) - !if ( !true) {} else {};
+    let x: ::test::test :=  -10&& !( ( !true))&& !if ( true) {}|| if ( -( !true)) {} else {} == false;
+    let x: u16 :=  !( -if ( if ( ( !( -( !0)))) {} else {}) {} else {}) >= if ( !false) {} else {}|| -if ( true) {}&& if ( !true) {} else {}|| -true|| !0|| -if ( -( true)) {} else {}&& -( -0)|| -if ( !0) {} else {}|| ( 10);
+    let x: u32 :=  if ( -false) {} else {} - ( !if ( -( -if ( ( -10)) {} else {})) {}) == !if ( !false) {} else {}|| true&& !if ( !true) {}&& !true|| !if ( !if ( ( -( false))) {}) {};
+    let x: u64 :=  -0 - if ( -10) {} else {} != -( -if ( if ( true) {} else {}) {});
+  return;  }
+  mod test {
+    fn func4(x: ::test::test::test, x: i16, x: test, x: ::test::test::test, x: ::test, ) -> test::test {
+      let x: ::test::test::test::test::test :=  ( -( -if ( -if ( ( -( ( !( !true))))) {} else {}) {} else {}))&& !0;
+      let x: u64 :=  -if ( ( !0)) {} >= -if ( if ( -false) {}) {} else {};
+      let x: ::test::test::test :=  false >= -( -( false))&& -false|| -false&& -( ( !if ( -true) {} else {}))|| !0|| true;
+      let x: test::test::test::test::test :=  ( !( !true))&& -( !10)|| -10;
+    return;    }
+    struct MyStruct5{x: bool, x: test, x: u8,     }
+    fn func6(x: string, x: i8, x: i8, x: ::test::test, ) {
+      let x: ::test::test::test :=  ( -false)|| if ( !( !10)) {}&& !false|| if ( ( -( ( !if ( 0) {})))) {} else {};
+      let x: bool :=  -( 10) <= ( !false)|| 10&& true|| !if ( -if ( !if ( -false) {}) {} else {}) {} else {}|| !10;
+      let x: test::test :=  -if ( !if ( !true) {}) {} <= -if ( if ( !( !( ( ( false))))) {}) {}|| !10&& -( ( !if ( ( !if ( if ( !( !true)) {}) {})) {} else {}));
+      let x: ::test::test::test :=  0&& !if ( ( -10)) {} else {}|| -( !if ( !true) {} else {})|| 0&& !false|| !10|| if ( !( if ( !if ( !if ( -( -if ( false) {})) {}) {} else {}) {})) {};
+    return;    }
+  }
+  struct MyStruct7{x: ::test::test::test, x: test::test::test::test::test::test, x: test::test, x: ::test::test::test,   }
+}
