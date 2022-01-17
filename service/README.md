@@ -1,3 +1,5 @@
+# Braid Insight Server
+## Overview
 A prototype server that will handle querying data about a Braid project.
 
 Following the LSP design idea.
@@ -8,7 +10,25 @@ So, this will just use a quick and dirty web service (Rocket) to power the
 communications layer.
 
 
-CLI
+## Running
+To run with the given test data, from this directory run:
+
+For positive path:
+```
+cargo run -- --target=./data/good
+```
+
+For an example of an error during compilation:
+```
+cargo run -- --target=./data/has_error
+```
+
+For a larger data set:
+```
+cargo run -- --target=./data/big
+```
+
+## CLI
 - Give location of directory where braidc was run from
 - Give location of trace data
 - sourcemap file locations are relative to where braidc was run
