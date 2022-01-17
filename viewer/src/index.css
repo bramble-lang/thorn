@@ -1,0 +1,131 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.code-highlight {
+  color: blue;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.code-ref-highlight {
+  color: purple;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.split-pane-col {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.split-pane-row {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+}
+
+.split-pane-top,
+.split-pane-bottom,
+.split-pane-right,
+.split-pane-left {
+  flex: 1;
+  overflow: hidden;
+  text-align: left;
+  padding: 1%;
+  overflow-y: visible;
+  overflow-y: hidden;
+  overflow-y: clip;
+  overflow-y: scroll;
+  overflow-y: auto;
+}
+
+.split-pane-right {
+  background-color: #fff;
+  text-align: left;
+  padding: 1%;
+  overflow-y: visible;
+  overflow-y: hidden;
+  overflow-y: clip;
+  overflow-y: scroll;
+  overflow-y: auto;
+}
+
+.split-pane-top,
+.split-pane-bottom {
+  background-color: #ccc;
+  text-align: left;
+  padding: 2%;
+}
+
+.separator-col {
+  border: 5px solid black;
+}
+
+.separator-row {
+  border: 5px solid black;
+  cursor: row-resize;
+}
+
+ul {
+  margin-left: -2%;
+}
+
+ul li {
+  margin: 1rem;
+  list-style-type: square;
+}
+
+ul a {
+  text-decoration: none;
+  color: darkblue;
+  font-size: large;
+}
+
+ul a:hover {
+  color: black;
+}
+
+blockquote {
+  border-left: 10px solid #ccc;
+  margin: 5.5em 0 0 0;
+  quotes: "\201C""\201D""\2018""\2019";
+  padding: 2rem 0 1rem;
+}
+
+blockquote:before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+
+blockquote p {
+  display: inline;
+}
+
+.quote {
+  max-width: 60%;
+  text-align: right;
+  margin: auto;
+  font-style: italic;
+}
+
+.quote span {
+  font-weight: bold;
+}
