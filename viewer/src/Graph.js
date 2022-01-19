@@ -111,6 +111,7 @@ class Graph extends Component {
         // Configure clicking on a cell
         paper.on('cell:pointerclick', (cv, event, x, y) => {
             console.debug("Cell Span: ", cv.model.attr('data/span'));
+            console.debug("Cell Id: ", cv.model.attr('data/id'));
             this.setState({ selectedNode: cv.model });
         });
 
@@ -149,9 +150,9 @@ class Graph extends Component {
         for (var nodeId in this.props.data.nodes) {
             var n = this.props.data.nodes[nodeId];
             if (n.ok) {
-                nodes[nodeId] = this.addNode(n.source, n.ok, 'lightblue');
+                nodes[nodeId] = this.addNode(n, n.ok, 'lightblue');
             } else if (n.error) {
-                nodes[nodeId] = this.addNode(n.source, n.error, 'red');
+                nodes[nodeId] = this.addNode(n, n.error, 'red');
             } else {
                 console.error("No valid state on event");
             }
@@ -222,7 +223,7 @@ class Graph extends Component {
     Adds a new node to the graph and returns the node object, so that it can
     be used for creating links or for further customization.
     */
-    addNode(span, body, color) {
+    addNode(node, body, color) {
         // Compute the width of the cell
         const cellWidth = this.calculateCellWidth(body);
 
@@ -231,28 +232,29 @@ class Graph extends Component {
         const cellHeight = (newlineCount + 2) * charHeight + 30;
 
         // create cell
-        var node = new joint.shapes.standard.HeaderedRectangle();
-        node.resize(cellWidth, cellHeight);
-        node.attr('root/title', 'joint.shapes.standard.HeaderedRectangle');
-        node.attr('header/fill', color);
-        node.attr('headerText/text', span);
-        node.attr('bodyText/text', body);
-        node.attr('data/span', span);
+        var cell = new joint.shapes.standard.HeaderedRectangle();
+        cell.resize(cellWidth, cellHeight);
+        cell.attr('root/title', 'joint.shapes.standard.HeaderedRectangle');
+        cell.attr('header/fill', color);
+        cell.attr('headerText/text', node.source);
+        cell.attr('bodyText/text', body);
+        cell.attr('data/span', node.source);
+        cell.attr('data/id', node.id);
 
 
         // Store the default colors for this node so that any changes to hte color
         // can be easily reset
-        node.set('defaultHeaderFill', color);
-        node.set('defaultHeaderStroke', 'black');
-        node.set('defaultBodyStroke', 'black');
+        cell.set('defaultHeaderFill', color);
+        cell.set('defaultHeaderStroke', 'black');
+        cell.set('defaultBodyStroke', 'black');
 
-        node.addTo(this.graph);
+        cell.addTo(this.graph);
 
         // Call language server to get the text associated with the span
         // then make that the header value
-        this.fetchSpanTextForNode(node, span);
+        this.fetchSpanTextForNode(cell, node.source);
 
-        return node;
+        return cell;
     }
 
     // Calculate how wide a cell needs to be in order to encapsulate the given body text
