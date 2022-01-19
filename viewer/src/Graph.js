@@ -154,7 +154,7 @@ class Graph extends Component {
             } else if (n.error) {
                 nodes[nodeId] = this.addNode(n, n.error, 'red');
             } else {
-                console.error("No valid state on event");
+                nodes[nodeId] = this.addNode(n, "NOOP", 'white');
             }
         }
 

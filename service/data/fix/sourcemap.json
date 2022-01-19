@@ -1,0 +1,16 @@
+[
+    {
+        "source": "./data/fix/main.br",
+        "span": [
+            0,
+            287
+        ]
+    },
+    {
+        "source": "./data/fix/second.br",
+        "span": [
+            287,
+            424
+        ]
+    }
+]

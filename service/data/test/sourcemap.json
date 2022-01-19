@@ -1,0 +1,16 @@
+[
+    {
+        "source": "/home/erichgess/code/repos/braid-lang/test/scratch/basic/main.br",
+        "span": [
+            0,
+            176
+        ]
+    },
+    {
+        "source": "/home/erichgess/code/repos/braid-lang/test/scratch/basic/second.br",
+        "span": [
+            176,
+            313
+        ]
+    }
+]
