@@ -154,7 +154,7 @@ class Graph extends Component {
             } else if (n.error) {
                 nodes[nodeId] = this.addNode(n, n.error, 'red');
             } else {
-                nodes[nodeId] = this.addNode(n, "NOOP", 'white');
+                //nodes[nodeId] = this.addNode(n, "NOOP", 'white');
             }
         }
 

@@ -58,7 +58,6 @@ impl Graph {
         self.edges.len()
     }
 
-
     /// Given the underlying trace event data, construct the set of edges which
     /// correspond to the parent->child hierarchy, where the parent event has the
     /// smallest span which contains the child event.
@@ -129,6 +128,43 @@ impl Graph {
             target,
             ty: EdgeType::Ref,
         })
+    }
+
+    /// This function will merge any NOOP events, effectively removing them
+    /// from the graph.
+    pub fn merge_noops(&mut self) {
+        println!("Merge Nodes");
+
+        // Iterate through all nodes
+        let len = self.nodes.len();
+        for n in 0..len {
+            // If node is a NOOP
+            if self.nodes[n].error.is_none() && self.nodes[n].ok.is_none() {
+                // Find the parent of this node
+                let mut parent_edge_idx = 0;
+                let mut parent_id = 0;
+                for e in 0..self.edges.len() {
+                    if self.edges[e].target == n {
+                        parent_id = self.edges[e].source;
+                        parent_edge_idx = e;
+                        break;
+                    }
+                }
+
+                // then find all edges that start at this NOOP node
+                // replace their source with the parent of the NOOP node
+                for e in &mut self.edges {
+                    if e.source == n {
+                        print!("Found NOOP ({} -> {})", e.source, e.target);
+                        e.source = parent_id;
+                        println!("=> Found NOOP ({} -> {})", e.source, e.target);
+                    }
+                }
+
+                // delete edge connecting the parent to the NOOP node
+                self.edges.remove(parent_edge_idx);
+            }
+        }
     }
 }
 

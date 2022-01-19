@@ -33,7 +33,8 @@ pub fn get_graph<'sm, 'ld>(stage: &str, ld: &'ld State<Trace>) -> Json<Graph> {
         .map(|e| e.clone())
         .collect();
     if pe.len() > 0 {
-        let graph = Graph::new(&pe);
+        let mut graph = Graph::new(&pe);
+        graph.merge_noops();
         info!("Nodes: {}", graph.num_nodes());
         info!("Edges: {}", graph.num_edges());
         debug!("{:?}", graph);
