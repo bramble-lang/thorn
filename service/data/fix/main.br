@@ -1,8 +1,7 @@
 fn my_main() -> i64 {
     let x:i64 := 5 * -7;
-    let a:[i64; 1] := [x];
-    let ms: MyStruct := MyStruct{f: a[0]};
-    project::std::io::writei64ln(ms.f);
+    let a:[MyStruct; 1] := [MyStruct{f: 1}];
+    project::std::io::writei64ln(a[0].f);
 
     let b:bool := root::second::my_bool();
     project::std::io::writeboolln(b);

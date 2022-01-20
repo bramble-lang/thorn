@@ -3,14 +3,14 @@
         "source": "./data/fix/main.br",
         "span": [
             0,
-            287
+            264
         ]
     },
     {
         "source": "./data/fix/second.br",
         "span": [
-            287,
-            424
+            264,
+            401
         ]
     }
 ]
