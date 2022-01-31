@@ -390,7 +390,7 @@
 {"id": 516, "parent_id": 488, "stage": "llvm", "source": [182, 215], "ok": "  call void @std_io_writeboolln(i1 %b1)"},
 {"id": 519, "parent_id": 518, "stage": "llvm", "source": [227, 228], "ok": "i64 0"},
 {"id": 518, "parent_id": 488, "stage": "llvm", "source": [220, 228], "ok": "  ret i64 0"},
-{"id": 488, "stage": "llvm", "source": [0, 231], "ok": "define i64 @basic_main_my_main() {\nentry:\n  %x = alloca i64, align 8\n  store i64 -35, i64* %x, align 4\n  %0 = alloca [1 x %basic_main_MyStruct], align 8\n  %1 = alloca %basic_main_MyStruct, align 8\n  %2 = getelementptr inbounds %basic_main_MyStruct, %basic_main_MyStruct* %1, i32 0, i32 0\n  store i64 1, i64* %2, align 4\n  %3 = getelementptr [1 x %basic_main_MyStruct], [1 x %basic_main_MyStruct]* %0, i64 0, i64 0\n  %4 = bitcast %basic_main_MyStruct* %3 to i8*\n  %5 = bitcast %basic_main_MyStruct* %1 to i8*\n  call void @llvm.memcpy.p0i8.p0i8.i64(i8* align 8 %4, i8* align 8 %5, i64 ptrtoint (i64* getelementptr (i64, i64* null, i32 1) to i64), i1 false)\n  %a = alloca [1 x %basic_main_MyStruct], align 8\n  %6 = bitcast [1 x %basic_main_MyStruct]* %a to i8*\n  %7 = bitcast [1 x %basic_main_MyStruct]* %0 to i8*\n  call void @llvm.memcpy.p0i8.p0i8.i64(i8* align 8 %6, i8* align 8 %7, i64 ptrtoint (i64* getelementptr (i64, i64* null, i32 1) to i64), i1 false)\n  %8 = getelementptr [1 x %basic_main_MyStruct], [1 x %basic_main_MyStruct]* %a, i64 0, i64 0\n  %9 = getelementptr inbounds %basic_main_MyStruct, %basic_main_MyStruct* %8, i32 0, i32 0\n  %10 = load i64, i64* %9, align 4\n  call void @std_io_writei64ln(i64 %10)\n  %b = alloca i1, align 1\n  %result = call i1 @basic_second_my_bool()\n  store i1 %result, i1* %b, align 1\n  %b1 = load i1, i1* %b, align 1\n  call void @std_io_writeboolln(i1 %b1)\n  ret i64 0\n}\n"},
+{"id": 488, "stage": "llvm", "source": [0, 231], "ok": "define i64 @basic_main_my_main() {}\n"},
 {"id": 526, "parent_id": 525, "stage": "llvm", "source": [312, 316], "ok": "i1 true"},
 {"id": 525, "parent_id": 524, "stage": "llvm", "source": [305, 317], "ok": "  %result = call i1 @basic_second_notter(i1 true)"},
 {"id": 528, "parent_id": 527, "stage": "llvm", "source": [328, 333], "ok": "i1 false"},
@@ -401,10 +401,10 @@
 {"id": 521, "parent_id": 520, "stage": "llvm", "source": [291, 335], "ok": "  %b = alloca i1, align 1"},
 {"id": 530, "parent_id": 529, "stage": "llvm", "source": [347, 348], "ok": "  %b2 = load i1, i1* %b, align 1"},
 {"id": 529, "parent_id": 520, "stage": "llvm", "source": [340, 348], "ok": "  ret i1 %b2"},
-{"id": 520, "stage": "llvm", "source": [264, 351], "ok": "define i1 @basic_second_my_bool() {\nentry:\n  %b = alloca i1, align 1\n  %result = call i1 @basic_second_notter(i1 true)\n  %result1 = call i1 @basic_second_notter(i1 false)\n  %0 = or i1 %result, %result1\n  store i1 %0, i1* %b, align 1\n  %b2 = load i1, i1* %b, align 1\n  ret i1 %b2\n}\n"},
+{"id": 520, "stage": "llvm", "source": [264, 351], "ok": "define i1 @basic_second_my_bool() {}\n"},
 {"id": 532, "parent_id": 531, "stage": "llvm", "source": [363, 370], "ok": "  %b = alloca i1, align 1"},
 {"id": 533, "parent_id": 531, "stage": "llvm", "source": [363, 370], "ok": "  store i1 %0, i1* %b, align 1"},
 {"id": 536, "parent_id": 535, "stage": "llvm", "source": [394, 398], "ok": "i1 true"},
 {"id": 535, "parent_id": 534, "stage": "llvm", "source": [393, 398], "ok": "i1 false"},
 {"id": 534, "parent_id": 531, "stage": "llvm", "source": [386, 398], "ok": "  ret i1 false"},
-{"id": 531, "stage": "llvm", "source": [353, 401], "ok": "define i1 @basic_second_notter(i1 %0) {\nentry:\n  %b = alloca i1, align 1\n  store i1 %0, i1* %b, align 1\n  ret i1 false\n}\n"}]
+{"id": 531, "stage": "llvm", "source": [353, 401], "ok": "define i1 @basic_second_notter(i1 %0) {}\n"}]
