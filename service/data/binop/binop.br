@@ -1,0 +1,9 @@
+fn my_main() -> i64 {
+    let a: i64 := 1;
+    let b: i64 := 2;
+    let c: i64 := (a + b) * 4 * (3 + 2 + 10 / 2);
+
+    project::std::io::writei64ln(c);
+
+    return (2 + -4) * c;
+}
