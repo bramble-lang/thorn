@@ -1,9 +1,6 @@
 # Thorn Insight Tools Platform
 Insight tools built off of the insight data generated when running the Bramble compiler.
 
-Instructions for each component are contained within the README's of the sub
-directories.
-
 Sample Insight data is contained in `./service/data`
 
 ## To Use Thorn
