@@ -1,10 +1,10 @@
 # Thorn Insight Tools Platform
-Insight tools built off of the insight data generated when running the Braid compiler.
+Insight tools built off of the insight data generated when running the Bramble compiler.
 
 Instructions for each component are contained within the README's of the sub
 directories.
 
-Sample Braid insight data is contained in `./service/data`
+Sample Insight data is contained in `./service/data`
 
 ## To Use Thorn
 Thorn consists of two components: the Server and the Viewer. The Server
