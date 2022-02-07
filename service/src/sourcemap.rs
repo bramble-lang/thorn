@@ -17,7 +17,7 @@ pub struct SourceMapEntry {
 
 impl SourceMap {
     pub fn load(path: PathBuf) -> Result<SourceMap, serde_json::Error> {
-        let file = File::open(path).unwrap();
+        let file = File::open(&path).expect(&format!("Could not open: {:?}", path));
         serde_json::from_reader(file).map(|sm: Vec<SourceMapEntry>| {
             // Extract list of file names from map
             let mut files = vec![];
