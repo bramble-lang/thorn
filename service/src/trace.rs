@@ -54,7 +54,7 @@ pub struct Trace {
 
 impl Trace {
     pub fn load(file: PathBuf) -> Result<Trace, serde_json::Error> {
-        let trace_file = File::open(file).unwrap();
+        let trace_file = File::open(&file).expect(&format!("Could not open: {:?}", file));
         serde_json::from_reader(trace_file).map(|ev| Trace { events: ev })
     }
 
