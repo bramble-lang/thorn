@@ -200,7 +200,7 @@ class App extends Component {
   }
 
   /*
-  Calls the Braid language server and gets a DOT representing the Parser AST.
+  Calls the Thorn server and gets a DOT representing the Parser AST.
   */
   getGraph(stage) {
     console.debug("Get Graph ", stage);

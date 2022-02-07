@@ -1,4 +1,4 @@
-//! Defines the various APIs for the Braid Compiler Server
+//! Defines the various APIs for the Thorn Insight Server
 
 
 use std::{fs::File, io::{Read, Seek, SeekFrom}, time::Instant};
@@ -40,7 +40,7 @@ pub fn get_graph<'sm, 'ld>(stage: &str, ld: &'ld State<Trace>) -> Json<Graph> {
     }
 }
 
-/// Get the list of files that belong to the currently hosted Braid
+/// Get the list of files that belong to the currently hosted Bramble
 /// project.
 #[get("/files")]
 pub fn get_files(sm: &State<SourceMap>) -> Json<Vec<(usize, &String)>> {

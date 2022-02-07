@@ -1,6 +1,6 @@
-# Braid Insight Server
+# Thorn Insight Server
 ## Overview
-A prototype server that will handle querying data about a Braid project.
+A prototype server that will handle querying data about a Bramble project.
 
 Following the LSP design idea.
 
@@ -29,9 +29,9 @@ cargo run -- --target=./data/big
 ```
 
 ## CLI
-- Give location of directory where braidc was run from
+- Give location of directory where bramblec was run from
 - Give location of trace data
-- sourcemap file locations are relative to where braidc was run
+- sourcemap file locations are relative to where bramblec was run
 
 On starting up this will then host a JSON web service where queries can be
 made by the web tool to get information about trace data or the language
