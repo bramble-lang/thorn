@@ -1,6 +1,6 @@
-# Braid Insight Server
+# Thorn Insight Server
 ## Overview
-A prototype server that will handle querying data about a Braid project.
+A prototype server that will handle querying data about a Bramble project.
 
 Following the LSP design idea.
 

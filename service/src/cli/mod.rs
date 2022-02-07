@@ -10,7 +10,7 @@ const DEFAULT_TARGET_DIR: &'static str = "./target";
 /// the command line.
 #[derive(Parser)]
 pub struct Cli {
-    #[clap(long = "target", default_value=DEFAULT_TARGET_DIR, help="The location that braidc event data can be found")]
+    #[clap(long = "target", default_value=DEFAULT_TARGET_DIR, help="The location that bramblec event data can be found")]
     target: PathBuf,
 }
 

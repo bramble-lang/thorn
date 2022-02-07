@@ -88,16 +88,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bef38d45163c2f1dde094a7dfd33ccf595c92905c8f8f4fdc18d06fb1037718a"
 
 [[package]]
-name = "braid-server"
-version = "0.1.0"
-dependencies = [
- "clap",
- "rocket",
- "serde",
- "serde_json",
-]
-
-[[package]]
 name = "bumpalo"
 version = "3.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1227,6 +1217,16 @@ name = "textwrap"
 version = "0.14.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0066c8d12af8b5acd21e00547c3797fde4e8677254a7ee429176ccebbe93dd80"
+
+[[package]]
+name = "thorns"
+version = "0.1.0"
+dependencies = [
+ "clap",
+ "rocket",
+ "serde",
+ "serde_json",
+]
 
 [[package]]
 name = "thread_local"
