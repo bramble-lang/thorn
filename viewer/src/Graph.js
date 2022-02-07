@@ -290,7 +290,7 @@ class Graph extends Component {
         return longestLine;
     }
 
-    // Asynchronous function that queries the Braid LSP to get the text value of the given
+    // Asynchronous function that queries the Thorn LSP to get the text value of the given
     // span.
     fetchSpanTextForNode(node, span) {
         // Call language server to get the text associated with the span

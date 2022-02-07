@@ -1,9 +1,9 @@
-# Braid Viewer
-UI component of the Braid insight and introspection platform. This allows a user to view
-and interact with the insight data generated during a Braid compiler run.
+# Thorn Viewer
+UI component of the Thorn insight and introspection platform. This allows a user to view
+and interact with the insight data generated during a Bramble compiler run.
 
 ## Getting Started
-The Viewer queries the Braid Service (which hosts the insight data) and then renders
+The Viewer queries the Thorn Service (which hosts the insight data) and then renders
 that data for viewing.
 
 ## Running
