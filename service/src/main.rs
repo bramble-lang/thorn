@@ -29,7 +29,7 @@ extern crate rocket;
 #[launch]
 fn rocket() -> _ {
     rocket::build()
-        .mount("/", routes![index, get_files, get_file, get_span])
+        .mount("/", routes![get_files, get_file, get_span])
         .attach(stage())
         .attach(CORS)
 }
