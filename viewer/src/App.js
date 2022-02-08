@@ -188,7 +188,7 @@ class App extends Component {
     console.debug("Get Files");
 
     // Call language server to get events that contain this span
-    fetch("http://localhost:8000/files")
+    fetch("/files")
       .then(res => res.json())
       .then((files) => {
         console.log(files)
@@ -210,7 +210,7 @@ class App extends Component {
     }
 
     // Call language server to get events that contain this span
-    fetch("http://localhost:8000/data/graph?stage=" + stage)
+    fetch("/data/graph?stage=" + stage)
       .then((res) => res.text())
       .then((dot) => {
         const graph = JSON.parse(dot);
@@ -226,7 +226,7 @@ class App extends Component {
     console.debug("Get FileContent");
 
     // Call language server to get events that contain this span
-    fetch("http://localhost:8000/files/" + id)
+    fetch("/files/" + id)
       .then(res => res.json())
       .then((content) => {
         console.debug(content);
