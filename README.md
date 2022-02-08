@@ -11,8 +11,26 @@ data is stored in the `./target` directory). The Viewer is a React application
 that connects to the Server and allows you to visualize and interact
 with the Insight data.
 
-### Install the Server
-From within the `service` directory run
+### Installing
+#### Viewer
+The Viewer is a React based web application that is hosted by the `thorns`
+server and lets you browse the insight data generated for your code.
+
+`thorns` defaults to looking for the static web app at `/usr/lib/thorns/viewer`
+but this can be overridden with then env variable `BRAMBLE_THORN_VIEWER_PATH`.
+
+To setup the Viewer so that `thorns` can find it follow these steps:
+1. Create a the `/usr/lib/thorns/viewer` directory.
+1. `cd` into `viewer`
+1. Run `npm run build` to build the static files for the Viewer
+1. `cp -r ./build/* /usr/lib/thorns/viewer/.` to copy the web app files to the
+`thorns` application data folder
+
+#### Thorns
+With the Viewer web application setup, you can install the `thorns` 
+host application.
+
+From within the `thorns` directory run:
 ```
 cargo install -- .
 ```
@@ -27,9 +45,3 @@ you run the Bramble compiler from and where the output `./target`
 directory is).  Run `thorns` from that directory, it will automatically
 load the Insights data from the `./target` directory and host it for
 querying.
-
-### Interact with Insights Data
-After running the server, go to the `viewer` subdirectory of this project
-and run `npm start` this will start the React GUI application which will
-connect to the Thorn server and let you explore the insights data from
-your project.

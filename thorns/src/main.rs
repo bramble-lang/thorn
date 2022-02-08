@@ -23,6 +23,8 @@ mod trace;
 mod cli;
 mod service;
 
+const DEFAULT_VIEWER_PATH: &str = "/usr/lib/thorns/viewer";
+
 #[macro_use]
 extern crate rocket;
 
@@ -48,7 +50,11 @@ fn stage() -> AdHoc {
         let sourcemap_path = get_sourcemap_file(target_dir.clone());
         let sourcemap = SourceMap::load(sourcemap_path).unwrap();
 
+        // Check if there is an env override for the location of the Viewer React app
+        let viewer_path = std::env::var("BRAMBLE_THORNS_VIEW_PATH").unwrap_or(DEFAULT_VIEWER_PATH.to_string());
+
         rocket
+            .mount("/", rocket::fs::FileServer::from(&viewer_path))
             .mount("/data", routes![get_data, get_graph])
             .manage(trace)
             .manage(sourcemap)
