@@ -99,7 +99,7 @@ export class TraceDisplay extends Component {
             var end = this.props.span[1];
 
             // Call language server to get events that contain this span
-            fetch("http://localhost:8000/data?low=" + start + "&high=" + end)
+            fetch("/data?low=" + start + "&high=" + end)
                 .then(res => res.json())
                 .then((data) => {
                     this.setState({

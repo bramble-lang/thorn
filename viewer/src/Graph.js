@@ -295,7 +295,7 @@ class Graph extends Component {
     fetchSpanTextForNode(node, span) {
         // Call language server to get the text associated with the span
         // then make that the header value
-        fetch("http://localhost:8000/files?low=" + span[0] + "&high=" + span[1])
+        fetch("/files?low=" + span[0] + "&high=" + span[1])
             .then((res) => res.json())
             .then((text) => {
                 // Remove newlines so that the cell header text can always be rendered as one line
