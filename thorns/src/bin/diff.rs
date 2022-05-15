@@ -29,19 +29,27 @@ fn diff(left: &Graph, right: &Graph) {
     let right_roots = right.get_roots();
 
     let roots = left_roots.iter().zip(right_roots.iter());
+    let mut diffs = vec![];
     for (l, r) in roots {
-        println!("left root: {:?}", left.get_node(*l));
-        println!("right root: {:?}", right.get_node(*r));
+        //println!("left root: {:?}", left.get_node(*l));
+        //println!("right root: {:?}", right.get_node(*r));
 
         // Starting at a root (assuming that structurally the root is the same)
         // traverse down both graphs and check that
         // the ok and the err are the same values
         // If they are not, then add the left span and right span tuple to the list of differences
-        inner_diff(left, *l, right, *r);
+        inner_diff(left, *l, right, *r, &mut diffs);
+    }
+
+    // print the diffs
+    for (l, r) in diffs {
+        let ln = left.get_node(l);
+        let rn = right.get_node(r);
+        println!("Diff: ({:?}, {:?})", ln.source, rn.source);
     }
 }
 
-fn inner_diff(left: &Graph, l: NodeId, right: &Graph, r: NodeId) {
+fn inner_diff(left: &Graph, l: NodeId, right: &Graph, r: NodeId, diff: &mut Vec<(NodeId, NodeId)>) {
     // recursively traverse both graphs at the same time using the
     // hierarchy edges: this forms a tree so there are no loops
 
@@ -51,14 +59,14 @@ fn inner_diff(left: &Graph, l: NodeId, right: &Graph, r: NodeId) {
     let ln = left.get_node(l);
     let rn = right.get_node(r);
     if !(ln.ok == rn.ok && ln.error == rn.error) {
-        println!("Diff: ({:?}, {:?})", ln.source, rn.source);
+        diff.push((l, r));
     }
 
     // Check all children for differences
     let lchild = left.get_adj(l);
     let rchild = right.get_adj(r);
     for (lc, rc) in lchild.iter().zip(rchild.iter()) {
-        inner_diff(left, *lc, right, *rc)
+        inner_diff(left, *lc, right, *rc, diff)
     }
 }
 
