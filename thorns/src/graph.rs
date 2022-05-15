@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::trace::Event;
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(PartialEq, Debug, Serialize, Deserialize)]
 pub enum EdgeType {
     /// This edge describes a direct syntactic relationship between one
     /// node and another.
@@ -31,7 +31,7 @@ pub struct Graph {
     nodes: Vec<Event>,
 }
 
-#[derive(Debug, Clone, Copy)]
+#[derive(PartialEq, Debug, Clone, Copy)]
 pub struct NodeId(usize);
 
 impl Graph {
@@ -195,8 +195,23 @@ impl Graph {
         roots
     }
 
+    /// Returns the node associated with the given [`NodeId`].
     pub fn get_node(&self, id: NodeId) -> &Event {
         &self.nodes[id.0]
+    }
+
+    /// Returns the nodes which are adjacent to the given node
+    pub fn get_adj(&self, id: NodeId) -> Vec<NodeId> {
+        self.edges
+            .iter()
+            .filter_map(|e| {
+                if e.ty == EdgeType::Parent && e.source == id.0 {
+                    Some(NodeId(e.target))
+                } else {
+                    None
+                }
+            })
+            .collect()
     }
 }
 

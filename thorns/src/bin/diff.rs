@@ -1,7 +1,7 @@
 use std::path::{Path, PathBuf};
 
 use rocket::{debug, info};
-use thorns::graph::Graph;
+use thorns::graph::{Graph, NodeId};
 use thorns::sourcemap::SourceMap;
 use thorns::trace::Trace;
 
@@ -25,8 +25,34 @@ fn main() {
 }
 
 fn diff(left: &Graph, right: &Graph) {
-    let left_roots = left.get_roots();
-    let right_roots = right.get_roots();
+    let left_roots = left.get_roots()[0];
+    let right_roots = right.get_roots()[0];
+
+    // Starting at a root (assuming that structurally the root is the same)
+    // traverse down both graphs and check that
+    // the ok and the err are the same values
+    // If they are not, then add the left span and right span tuple to the list of differences
+    inner_diff(left, left_roots, right, right_roots);
+}
+
+fn inner_diff(left: &Graph, l: NodeId, right: &Graph, r: NodeId) {
+    // recursively traverse both graphs at the same time using the
+    // hierarchy edges: this forms a tree so there are no loops
+
+    // if l and r differ then add to the set of differences
+    // TODO: this assumes both graphs are from the same compiler stage, should also diff on that just to help with debugging
+    let ln = left.get_node(l);
+    let rn = right.get_node(r);
+    if !(ln.ok == rn.ok && ln.error == rn.error) {
+        println!("Diff: ({:?}, {:?})", ln.source, rn.source);
+    }
+
+    // Check all children for differences
+    let lchild = left.get_adj(l);
+    let rchild = right.get_adj(r);
+    for (lc, rc) in lchild.iter().zip(rchild.iter()) {
+        inner_diff(left, *lc, right, *rc)
+    }
 }
 
 fn open_trace(path: &str) -> Result<Trace, serde_json::Error> {
