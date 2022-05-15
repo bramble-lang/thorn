@@ -8,8 +8,8 @@ use thorns::trace::Trace;
 fn main() {
     let stage = "parser";
 
-    let left = "./data/diff/left";
-    let right = "./data/diff/right";
+    let left = "./data/diff2/left";
+    let right = "./data/diff2/right";
 
     // Open left Trace directory and associated code
     let left_trace = open_trace(left).unwrap();
@@ -26,10 +26,20 @@ fn main() {
     let right_graph = get_graph(&right_trace, stage).unwrap();
 
     // Diff the two graphs
-    diff(&left_graph, &right_graph);
+    let diffs = diff(&left_graph, &right_graph);
+    print_diffs(&left_graph, &right_graph, &diffs);
 }
 
-fn diff(left: &Graph, right: &Graph) {
+fn print_diffs(left: &Graph, right: &Graph, diffs: &[(NodeId, NodeId)]) {
+    // print the diffs
+    for (l, r) in diffs {
+        let ln = left.get_node(*l);
+        let rn = right.get_node(*r);
+        println!("Diff: ({:?}, {:?})", ln.source, rn.source);
+    }
+}
+
+fn diff(left: &Graph, right: &Graph) -> Vec<(NodeId, NodeId)> {
     let left_roots = left.get_roots();
     let right_roots = right.get_roots();
 
@@ -46,12 +56,7 @@ fn diff(left: &Graph, right: &Graph) {
         inner_diff(left, *l, right, *r, &mut diffs);
     }
 
-    // print the diffs
-    for (l, r) in diffs {
-        let ln = left.get_node(l);
-        let rn = right.get_node(r);
-        println!("Diff: ({:?}, {:?})", ln.source, rn.source);
-    }
+    diffs
 }
 
 fn inner_diff(left: &Graph, l: NodeId, right: &Graph, r: NodeId, diff: &mut Vec<(NodeId, NodeId)>) {
