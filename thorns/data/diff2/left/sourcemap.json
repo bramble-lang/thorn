@@ -1,0 +1,16 @@
+[
+    {
+        "source": "./data/diff/left/main.br",
+        "span": [
+            0,
+            264
+        ]
+    },
+    {
+        "source": "./data/diff/left/second.br",
+        "span": [
+            264,
+            401
+        ]
+    }
+]
