@@ -31,6 +31,9 @@ pub struct Graph {
     nodes: Vec<Event>,
 }
 
+#[derive(Debug, Clone, Copy)]
+pub struct NodeId(usize);
+
 impl Graph {
     pub fn new(trace: &[Event]) -> Graph {
         info!("Construct Edge Graph");
@@ -168,6 +171,32 @@ impl Graph {
                 self.edges.remove(parent_edge_idx);
             }
         }
+    }
+
+    /// Returns a vector of the nodes which have no incoming edges: the "root" nodes
+    pub fn get_roots(&self) -> Vec<NodeId> {
+        let mut count = vec![0; self.num_nodes()];
+
+        for e in &self.edges {
+            count[e.target] += 1;
+        }
+
+        let roots = count
+            .iter()
+            .enumerate()
+            .filter(|(_, count)| **count == 0)
+            .filter(|(idx, _)| {
+                // filter noop nodes
+                self.nodes[*idx].error.is_some() || self.nodes[*idx].ok.is_some()
+            })
+            .map(|(idx, _)| NodeId(idx))
+            .collect();
+
+        roots
+    }
+
+    pub fn get_node(&self, id: NodeId) -> &Event {
+        &self.nodes[id.0]
     }
 }
 

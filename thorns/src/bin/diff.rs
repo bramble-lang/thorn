@@ -11,16 +11,18 @@ fn main() {
     let left_sourcemap = open_sourcemap("./data/diff/left").unwrap();
 
     // Generate the graph for the left side
-    let left_graph = get_graph(&left_trace, "parser");
+    let left_graph = get_graph(&left_trace, "parser").unwrap();
 
     // Open right Trace directory and associated code
     let right_trace = open_trace("./data/diff/right").unwrap();
     let right_sourcemap = open_sourcemap("./data/diff/right").unwrap();
 
     // Generate the graph for the right side
-    let right_graph = get_graph(&right_trace, "parser");
+    let right_graph = get_graph(&right_trace, "parser").unwrap();
 
     // Diff the two graphs
+    let left_roots = left_graph.get_roots();
+    println!("{:?}", left_roots);
 }
 
 fn open_trace(path: &str) -> Result<Trace, serde_json::Error> {
