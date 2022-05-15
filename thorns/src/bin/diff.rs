@@ -6,7 +6,7 @@ use thorns::sourcemap::SourceMap;
 use thorns::trace::Trace;
 
 fn main() {
-    let stage = "parser";
+    let stage = "type-resolver";
 
     let left = "./data/diff2/left";
     let right = "./data/diff2/right";
@@ -26,7 +26,7 @@ fn main() {
     let right_graph = get_graph(&right_trace, stage).unwrap();
 
     // Diff the two graphs
-    let diffs = diff(&left_graph, &right_graph);
+    let diffs = diff(&left_graph, &left_sourcemap, &right_graph, &right_sourcemap);
     print_diffs(
         &left_graph,
         &left_sourcemap,
@@ -74,7 +74,12 @@ fn print_diffs(
     }
 }
 
-fn diff(left: &Graph, right: &Graph) -> Vec<(NodeId, NodeId)> {
+fn diff(
+    left: &Graph,
+    left_sm: &SourceMap,
+    right: &Graph,
+    right_sm: &SourceMap,
+) -> Vec<(NodeId, NodeId)> {
     let left_roots = left.get_roots();
     let right_roots = right.get_roots();
 
@@ -88,13 +93,21 @@ fn diff(left: &Graph, right: &Graph) -> Vec<(NodeId, NodeId)> {
         // traverse down both graphs and check that
         // the ok and the err are the same values
         // If they are not, then add the left span and right span tuple to the list of differences
-        inner_diff(left, *l, right, *r, &mut diffs);
+        inner_diff(left, left_sm, *l, right, right_sm, *r, &mut diffs);
     }
 
     diffs
 }
 
-fn inner_diff(left: &Graph, l: NodeId, right: &Graph, r: NodeId, diff: &mut Vec<(NodeId, NodeId)>) {
+fn inner_diff(
+    left: &Graph,
+    left_sm: &SourceMap,
+    l: NodeId,
+    right: &Graph,
+    right_sm: &SourceMap,
+    r: NodeId,
+    diff: &mut Vec<(NodeId, NodeId)>,
+) {
     // recursively traverse both graphs at the same time using the
     // hierarchy edges: this forms a tree so there are no loops
 
@@ -106,12 +119,26 @@ fn inner_diff(left: &Graph, l: NodeId, right: &Graph, r: NodeId, diff: &mut Vec<
     if !(ln.ok == rn.ok && ln.error == rn.error) {
         diff.push((l, r));
     }
+    /*else {
+        let lt = left_sm.text_in_span(ln.source);
+        let rt = right_sm.text_in_span(rn.source);
+        match (lt, rt) {
+            (Ok(lt), Ok(rt)) => {
+                if lt != rt {
+                    diff.push((l, r));
+                }
+            }
+            (Ok(_), Err(_)) => todo!(),
+            (Err(_), Ok(_)) => (),
+            (Err(_), Err(_)) => (),
+        }
+    }*/
 
     // Check all children for differences
     let lchild = left.get_adj(l);
     let rchild = right.get_adj(r);
     for (lc, rc) in lchild.iter().zip(rchild.iter()) {
-        inner_diff(left, *lc, right, *rc, diff)
+        inner_diff(left, left_sm, *lc, right, right_sm, *rc, diff)
     }
 }
 
