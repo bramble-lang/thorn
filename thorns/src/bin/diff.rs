@@ -25,17 +25,20 @@ fn main() {
 }
 
 fn diff(left: &Graph, right: &Graph) {
-    let left_roots = left.get_roots()[0];
-    let right_roots = right.get_roots()[0];
+    let left_roots = left.get_roots();
+    let right_roots = right.get_roots();
 
-    println!("left root: {:?}", left.get_node(left_roots));
-    println!("right root: {:?}", right.get_node(right_roots));
+    let roots = left_roots.iter().zip(right_roots.iter());
+    for (l, r) in roots {
+        println!("left root: {:?}", left.get_node(*l));
+        println!("right root: {:?}", right.get_node(*r));
 
-    // Starting at a root (assuming that structurally the root is the same)
-    // traverse down both graphs and check that
-    // the ok and the err are the same values
-    // If they are not, then add the left span and right span tuple to the list of differences
-    inner_diff(left, left_roots, right, right_roots);
+        // Starting at a root (assuming that structurally the root is the same)
+        // traverse down both graphs and check that
+        // the ok and the err are the same values
+        // If they are not, then add the left span and right span tuple to the list of differences
+        inner_diff(left, *l, right, *r);
+    }
 }
 
 fn inner_diff(left: &Graph, l: NodeId, right: &Graph, r: NodeId) {
