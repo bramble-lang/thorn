@@ -213,6 +213,11 @@ impl Graph {
             })
             .collect()
     }
+
+    /// Returns [`true`] if the given [`NodeId`] has no children
+    pub fn is_leaf(&self, id: NodeId) -> bool {
+        !self.edges.iter().any(|e| e.source == id.0)
+    }
 }
 
 /// Returns true if `a` contains `b`

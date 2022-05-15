@@ -6,7 +6,7 @@ use thorns::sourcemap::SourceMap;
 use thorns::trace::Trace;
 
 fn main() {
-    let stage = "type-resolver";
+    let stage = "parser";
 
     let left = "./data/diff2/left";
     let right = "./data/diff2/right";
@@ -118,8 +118,7 @@ fn inner_diff(
     let rn = right.get_node(r);
     if !(ln.ok == rn.ok && ln.error == rn.error) {
         diff.push((l, r));
-    }
-    /*else {
+    } else if left.is_leaf(l) || right.is_leaf(r) {
         let lt = left_sm.text_in_span(ln.source);
         let rt = right_sm.text_in_span(rn.source);
         match (lt, rt) {
@@ -132,7 +131,7 @@ fn inner_diff(
             (Err(_), Ok(_)) => (),
             (Err(_), Err(_)) => (),
         }
-    }*/
+    }
 
     // Check all children for differences
     let lchild = left.get_adj(l);
