@@ -48,6 +48,11 @@ fn print_diffs(
         let ln = left.get_node(*l);
         let rn = right.get_node(*r);
         println!("Diff: ({:?}, {:?})", ln.source, rn.source);
+        let lt = left_sm.text_in_span(ln.source).unwrap();
+        let rt = right_sm.text_in_span(rn.source).unwrap();
+        println!("< {}", lt);
+        println!("> {}", rt);
+        println!("---");
     }
 }
 
