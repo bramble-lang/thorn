@@ -1,5 +1,7 @@
 //! Defines the various APIs for the Thorn Insight Server
 
+pub mod cors;
+
 use std::{
     fs::File,
     io::{Read, Seek, SeekFrom},

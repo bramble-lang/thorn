@@ -10,10 +10,9 @@ use std::path::PathBuf;
 use clap::StructOpt;
 use rocket::fairing::AdHoc;
 
-use thorns::cors::CORS;
 use thorns::sourcemap::SourceMap;
 use thorns::trace::Trace;
-use thorns::{cli, service::*};
+use thorns::{cli, service::cors::CORS, service::*};
 
 const VIEWER_PATH_ENV: &str = "BRAMBLE_THORNS_VIEWER_PATH";
 const DEFAULT_VIEWER_PATH: &str = "/usr/lib/thorns/viewer";
