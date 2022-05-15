@@ -26,6 +26,28 @@ impl Span {
     pub fn intersects(&self, a: &Span) -> bool {
         a.low() <= self.high() && a.high() >= self.low()
     }
+
+    /// If this and `a` intersect, then this will return the [`Span`] that
+    /// covers that intersection.
+    pub fn intersection(&self, b: Span) -> Option<Span> {
+        // Test for the intersection of self and b
+        let low = if self.low() < b.low() {
+            b.low()
+        } else {
+            self.low()
+        };
+        let high = if self.high() < b.high() {
+            self.high()
+        } else {
+            b.high()
+        };
+
+        if low < high {
+            Some(Span::new(low, high))
+        } else {
+            None
+        }
+    }
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]

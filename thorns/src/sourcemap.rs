@@ -1,4 +1,10 @@
-use std::{cmp::Ordering, collections::HashMap, fs::File, path::PathBuf};
+use std::{
+    cmp::Ordering,
+    collections::HashMap,
+    fs::File,
+    io::{Read, Seek, SeekFrom},
+    path::PathBuf,
+};
 
 use serde::Deserialize;
 
@@ -81,5 +87,67 @@ impl SourceMap {
         });
 
         files.into_iter().map(|(f, s)| (f.as_str(), *s)).collect()
+    }
+
+    /// Returns the text from the source code that the give [`Span`] covers.
+    pub fn text_in_span(&self, span: Span) -> Result<String, SourceError> {
+        let files = self.files_in_span(span);
+
+        if files.is_empty() {
+            // return error
+            return Err(SourceError::SourceNotFound(span));
+        }
+
+        // Convert all the spans to code snippets.  If the span crosses multiple files this will join them together
+        files
+            .iter()
+            .map(|(f, fspan)| self.read_span(f, *fspan, span))
+            .collect::<Result<String, _>>()
+    }
+
+    fn read_span(&self, f: &str, fspan: Span, read_span: Span) -> Result<String, SourceError> {
+        let span = fspan
+            .intersection(read_span)
+            .ok_or_else(|| SourceError::UnexpectedEof)?;
+        let local_low = (span.low() - fspan.low()) as u64;
+        let local_high = (span.high() - fspan.low()) as u64;
+
+        let len = local_high - local_low;
+
+        let text = {
+            let mut file = std::fs::File::open(f)?;
+
+            // Read the span from the file
+            let mut buf = vec![0; len as usize];
+            file.seek(SeekFrom::Start(local_low))?;
+            file.read_exact(&mut buf)?;
+
+            String::from_utf8(buf)?
+        };
+
+        Ok(text)
+    }
+}
+
+/// Errors that can happen when trying to read from a source code stream.
+#[derive(Debug)]
+pub enum SourceError {
+    ExceededAssignedRange,
+    OffsetExceededMaxSize,
+    UnexpectedEof,
+    Io(std::io::Error),
+    FromUtf8Error(std::string::FromUtf8Error),
+    SourceNotFound(Span),
+}
+
+impl From<std::io::Error> for SourceError {
+    fn from(io: std::io::Error) -> Self {
+        Self::Io(io)
+    }
+}
+
+impl From<std::string::FromUtf8Error> for SourceError {
+    fn from(e: std::string::FromUtf8Error) -> Self {
+        Self::FromUtf8Error(e)
     }
 }

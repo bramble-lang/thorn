@@ -27,10 +27,22 @@ fn main() {
 
     // Diff the two graphs
     let diffs = diff(&left_graph, &right_graph);
-    print_diffs(&left_graph, &right_graph, &diffs);
+    print_diffs(
+        &left_graph,
+        &left_sourcemap,
+        &right_graph,
+        &right_sourcemap,
+        &diffs,
+    );
 }
 
-fn print_diffs(left: &Graph, right: &Graph, diffs: &[(NodeId, NodeId)]) {
+fn print_diffs(
+    left: &Graph,
+    left_sm: &SourceMap,
+    right: &Graph,
+    right_sm: &SourceMap,
+    diffs: &[(NodeId, NodeId)],
+) {
     // print the diffs
     for (l, r) in diffs {
         let ln = left.get_node(*l);
