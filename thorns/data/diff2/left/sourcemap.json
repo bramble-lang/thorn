@@ -1,16 +1,16 @@
 [
     {
-        "source": "./data/diff/left/main.br",
+        "source": "./data/diff2/left/main.br",
         "span": [
             0,
-            264
+            269
         ]
     },
     {
-        "source": "./data/diff/left/second.br",
+        "source": "./data/diff2/left/second.br",
         "span": [
-            264,
-            401
+            269,
+            406
         ]
     }
 ]

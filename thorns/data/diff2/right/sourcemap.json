@@ -3,14 +3,14 @@
         "source": "./data/diff2/right/main.br",
         "span": [
             0,
-            264
+            269
         ]
     },
     {
         "source": "./data/diff2/right/second.br",
         "span": [
-            264,
-            412
+            269,
+            434
         ]
     }
 ]

@@ -1,9 +1,10 @@
-fn my_bool() -> bool {
+fn my_bool() -> i64 {
     let b:bool := notter(true) 
-        || notter(false);
-    return b;
+        || 
+            notter(false);
+    return b as i64;
 }
 
 fn notter(b: bool) -> bool {
-    return !(true);
+    return !true;
 }
