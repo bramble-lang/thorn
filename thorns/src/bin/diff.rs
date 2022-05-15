@@ -50,8 +50,26 @@ fn print_diffs(
         println!("Diff: ({:?}, {:?})", ln.source, rn.source);
         let lt = left_sm.text_in_span(ln.source).unwrap();
         let rt = right_sm.text_in_span(rn.source).unwrap();
-        println!("< {}", lt);
-        println!("> {}", rt);
+        println!(
+            "< {} | {}",
+            lt,
+            match (ln.ok.as_ref(), ln.error.as_ref()) {
+                (None, None) => "",
+                (None, Some(e)) => &e,
+                (Some(o), None) => &o,
+                (Some(_), Some(_)) => todo!(),
+            }
+        );
+        println!(
+            "> {} | {}",
+            rt,
+            match (rn.ok.as_ref(), rn.error.as_ref()) {
+                (None, None) => "",
+                (None, Some(e)) => &e,
+                (Some(o), None) => &o,
+                (Some(_), Some(_)) => todo!(),
+            }
+        );
         println!("---");
     }
 }
