@@ -1,4 +1,5 @@
 //! Given a set of trace events, this will extract the graph topology
+use rocket::info;
 use serde::{Deserialize, Serialize};
 
 use crate::trace::Event;

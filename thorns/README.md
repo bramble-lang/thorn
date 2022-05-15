@@ -15,22 +15,22 @@ To run with the given test data, from this directory run:
 
 For positive path:
 ```
-cargo run -- --target=./data/good
+cargo run --bin thorns -- --target=./data/good
 ```
 
 For an example of an error during compilation:
 ```
-cargo run -- --target=./data/has_error
+cargo run --bin thorns -- --target=./data/has_error
 ```
 
 For a larger data set:
 ```
-cargo run -- --target=./data/big
+cargo run --bin thorns -- --target=./data/big
 ```
 
 ## CLI
 - Give location of directory where bramblec was run from
-- Give location of trace data
+- Give location of trace datcratea
 - sourcemap file locations are relative to where bramblec was run
 
 On starting up this will then host a JSON web service where queries can be
