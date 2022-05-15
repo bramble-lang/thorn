@@ -15,12 +15,7 @@ To run with the given test data, from this directory run:
 
 For positive path:
 ```
-cargo run --bin thorns -- --target=./data/good
-```
-
-For an example of an error during compilation:
-```
-cargo run --bin thorns -- --target=./data/has_error
+cargo run --bin thorns -- --target=./data/fix
 ```
 
 For a larger data set:
