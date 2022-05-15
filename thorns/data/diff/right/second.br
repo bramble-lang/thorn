@@ -1,8 +1,9 @@
 fn my_bool() -> bool {
-    let b:bool := notter(true) || notter(false);
+    let b:bool := notter(true) 
+        || notter(false);
     return b;
 }
 
 fn notter(b: bool) -> bool {
-    return !true;
+    return !(true);
 }
