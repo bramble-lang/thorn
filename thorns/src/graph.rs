@@ -214,6 +214,20 @@ impl Graph {
             .collect()
     }
 
+    /// Returns the nodes which reference the given node
+    pub fn get_refed_by(&self, id: NodeId) -> Vec<NodeId> {
+        self.edges
+            .iter()
+            .filter_map(|e| {
+                if e.ty == EdgeType::Ref && e.target == id.0 {
+                    Some(NodeId(e.target))
+                } else {
+                    None
+                }
+            })
+            .collect()
+    }
+
     /// Returns [`true`] if the given [`NodeId`] has no children
     pub fn is_leaf(&self, id: NodeId) -> bool {
         !self.edges.iter().any(|e| e.source == id.0)

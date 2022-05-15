@@ -3,7 +3,7 @@ use std::path::{Path, PathBuf};
 use rocket::{debug, info};
 use thorns::graph::{Graph, NodeId};
 use thorns::sourcemap::SourceMap;
-use thorns::trace::Trace;
+use thorns::trace::{Event, Trace};
 
 fn main() {
     let stage = "parser";
@@ -48,30 +48,26 @@ fn print_diffs(
         let ln = left.get_node(*l);
         let rn = right.get_node(*r);
         println!("Diff: ({:?}, {:?})", ln.source, rn.source);
-        let lt = left_sm.text_in_span(ln.source).unwrap();
-        let rt = right_sm.text_in_span(rn.source).unwrap();
-        println!(
-            "< {} | {}",
-            lt,
-            match (ln.ok.as_ref(), ln.error.as_ref()) {
-                (None, None) => "",
-                (None, Some(e)) => &e,
-                (Some(o), None) => &o,
-                (Some(_), Some(_)) => todo!(),
-            }
-        );
-        println!(
-            "> {} | {}",
-            rt,
-            match (rn.ok.as_ref(), rn.error.as_ref()) {
-                (None, None) => "",
-                (None, Some(e)) => &e,
-                (Some(o), None) => &o,
-                (Some(_), Some(_)) => todo!(),
-            }
-        );
+        print!("< ");
+        print_event(ln, left_sm);
+        print!("> ");
+        print_event(rn, right_sm);
         println!("---");
     }
+}
+
+fn print_event(e: &Event, sm: &SourceMap) {
+    let et = sm.text_in_span(e.source).unwrap();
+    println!(
+        "{} | {}",
+        et,
+        match (e.ok.as_ref(), e.error.as_ref()) {
+            (None, None) => "",
+            (None, Some(e)) => &e,
+            (Some(o), None) => &o,
+            (Some(_), Some(_)) => todo!(),
+        }
+    );
 }
 
 fn diff(
