@@ -28,6 +28,9 @@ fn diff(left: &Graph, right: &Graph) {
     let left_roots = left.get_roots()[0];
     let right_roots = right.get_roots()[0];
 
+    println!("left root: {:?}", left.get_node(left_roots));
+    println!("right root: {:?}", right.get_node(right_roots));
+
     // Starting at a root (assuming that structurally the root is the same)
     // traverse down both graphs and check that
     // the ok and the err are the same values
