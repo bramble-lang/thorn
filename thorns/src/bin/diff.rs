@@ -44,6 +44,7 @@ fn inner_diff(left: &Graph, l: NodeId, right: &Graph, r: NodeId) {
 
     // if l and r differ then add to the set of differences
     // TODO: this assumes both graphs are from the same compiler stage, should also diff on that just to help with debugging
+    // TODO: The diffs should store refs to the left and right Events (this will include the spans _and_ the compiler context info)
     let ln = left.get_node(l);
     let rn = right.get_node(r);
     if !(ln.ok == rn.ok && ln.error == rn.error) {
