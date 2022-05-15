@@ -21,8 +21,12 @@ fn main() {
     let right_graph = get_graph(&right_trace, "parser").unwrap();
 
     // Diff the two graphs
-    let left_roots = left_graph.get_roots();
-    println!("{:?}", left_roots);
+    diff(&left_graph, &right_graph);
+}
+
+fn diff(left: &Graph, right: &Graph) {
+    let left_roots = left.get_roots();
+    let right_roots = right.get_roots();
 }
 
 fn open_trace(path: &str) -> Result<Trace, serde_json::Error> {
