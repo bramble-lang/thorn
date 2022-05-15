@@ -1,5 +1,5 @@
 //! Given a set of trace events, this will extract the graph topology
-use rocket::info;
+use rocket::{debug, info};
 use serde::{Deserialize, Serialize};
 
 use crate::trace::Event;
@@ -134,7 +134,7 @@ impl Graph {
     /// This function will merge any NOOP events, effectively removing them
     /// from the graph.
     pub fn merge_noops(&mut self) {
-        println!("Merge Nodes");
+        info!("Merge Nodes");
 
         // Iterate through all nodes
         let len = self.nodes.len();
@@ -156,9 +156,11 @@ impl Graph {
                 // replace their source with the parent of the NOOP node
                 for e in &mut self.edges {
                     if e.source == n {
-                        print!("Found NOOP ({} -> {})", e.source, e.target);
+                        debug!(
+                            "Found NOOP ({} -> {}) => Found NOOP ({} -> {})",
+                            e.source, e.target, parent_id, e.target
+                        );
                         e.source = parent_id;
-                        println!("=> Found NOOP ({} -> {})", e.source, e.target);
                     }
                 }
 
