@@ -1,13 +1,13 @@
 [
     {
-        "source": "./data/fix/main.br",
+        "source": "./data/diff/right/main.br",
         "span": [
             0,
             264
         ]
     },
     {
-        "source": "./data/fix/second.br",
+        "source": "./data/diff/right/second.br",
         "span": [
             264,
             401
