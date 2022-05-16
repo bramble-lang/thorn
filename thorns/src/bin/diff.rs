@@ -63,21 +63,6 @@ fn main() {
         &right_sourcemap,
         &diffs,
     );
-
-    // print secondary affects
-    // For any right side node which was changed between the left and right
-    // look up any nodes which reference that node and mark them as indirectly affected
-    println!("\nSecondary Effects");
-    for (_, r) in diffs {
-        // get referers
-        let reffers = right_graph.get_refed_by(r);
-
-        reffers.iter().for_each(|n| {
-            let evt = right_graph.get_node(*n);
-            print!("> ");
-            print_event(evt, &right_sourcemap);
-        })
-    }
 }
 
 fn print_diffs(
