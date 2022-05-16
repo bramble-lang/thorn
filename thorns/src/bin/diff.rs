@@ -1,29 +1,58 @@
 use std::path::{Path, PathBuf};
 
+use clap::Parser;
 use rocket::{debug, info};
 use thorns::graph::{Graph, NodeId};
 use thorns::sourcemap::SourceMap;
 use thorns::trace::{Event, Trace};
 
-fn main() {
-    let stage = "type-resolver";
+/// The set of configuratoin parameters that can be passed via
+/// the command line.
+#[derive(Parser)]
+pub struct Cli {
+    #[clap(long = "left", help = "The left side of the comparison")]
+    left: PathBuf,
 
-    let left = "./data/diff2/left";
-    let right = "./data/diff2/right";
+    #[clap(long = "right", help = "The right side of the comparison")]
+    right: PathBuf,
+
+    #[clap(
+        long = "stage",
+        help = "Which compiler stage to diff: lexer, parser, type-resolver, llvm"
+    )]
+    stage: String,
+}
+
+impl Cli {
+    pub fn left(&self) -> &Path {
+        &self.left
+    }
+
+    pub fn right(&self) -> &Path {
+        &self.right
+    }
+
+    pub fn stage(&self) -> &str {
+        &self.stage
+    }
+}
+
+fn main() {
+    let args = Cli::parse();
 
     // Open left Trace directory and associated code
-    let left_trace = open_trace(left).unwrap();
-    let left_sourcemap = open_sourcemap(left).unwrap();
+    let left_trace = open_trace(args.left()).unwrap();
+    let left_sourcemap = open_sourcemap(args.left()).unwrap();
 
     // Generate the graph for the left side
-    let left_graph = get_graph(&left_trace, stage).unwrap();
+    let left_graph = get_graph(&left_trace, args.stage()).unwrap();
 
     // Open right Trace directory and associated code
-    let right_trace = open_trace(right).unwrap();
-    let right_sourcemap = open_sourcemap(right).unwrap();
+    let right_trace = open_trace(args.right()).unwrap();
+    let right_sourcemap = open_sourcemap(args.right()).unwrap();
 
     // Generate the graph for the right side
-    let right_graph = get_graph(&right_trace, stage).unwrap();
+    let right_graph = get_graph(&right_trace, args.stage()).unwrap();
 
     // Diff the two graphs
     let diffs = diff(&left_graph, &left_sourcemap, &right_graph, &right_sourcemap);
@@ -152,15 +181,14 @@ fn inner_diff(
     }
 }
 
-fn open_trace(path: &str) -> Result<Trace, serde_json::Error> {
-    let target_dir = Path::new(path).to_path_buf();
-    let file = get_trace_file(target_dir.clone());
+fn open_trace(path: &Path) -> Result<Trace, serde_json::Error> {
+    let file = get_trace_file(path.to_path_buf());
 
     Trace::load(file.to_path_buf())
 }
 
-fn open_sourcemap(path: &str) -> Result<SourceMap, serde_json::Error> {
-    let target_dir = Path::new(path).to_path_buf();
+fn open_sourcemap(path: &Path) -> Result<SourceMap, serde_json::Error> {
+    let target_dir = path.to_path_buf();
     let sourcemap_path = get_sourcemap_file(target_dir.to_path_buf());
     SourceMap::load(sourcemap_path)
 }
